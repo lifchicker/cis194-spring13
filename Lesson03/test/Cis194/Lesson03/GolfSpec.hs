@@ -22,3 +22,9 @@ spec = do
       skips [1] `shouldBe` [[1]]
       skips [True,False] `shouldBe` [[True,False], [False]]
       -- skips [] `shouldBe` []
+  describe "localMaxima" $ do
+    it "A local maximum of a list is an element of the list which is strictly\
+    \ greater than both the elements immediately before and after it" $ do
+      localMaxima [2,9,5,6,1] `shouldBe` [9,6]
+      localMaxima [2,3,4,1,5] `shouldBe` [4]
+      localMaxima [1,2,3,4,5] `shouldBe` []
