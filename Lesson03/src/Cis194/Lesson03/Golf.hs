@@ -8,7 +8,7 @@ import Data.List
 -- generate the list of pairs (i, a), where i - index of element a in original list (something like [(1, "A"), (2, "B")])
 -- for each pair filter only the elements for which i devided by j without the remainder
 skips :: [a] -> [[a]]
-skips xs = [([a | (i, a) <- (zip [1..n] xs), i `mod` j == 0]) | let n = length xs, j <- [1..n]]
+skips xs = [([a | (i, a) <- (zip n xs), i `mod` j == 0]) | let n = [1..(length xs)], j <- n]
 
 -- create a tuples with (i, i+1, i+2) elements from original list
 -- filter elements which is local maximums
