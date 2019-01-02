@@ -19,7 +19,6 @@ localMaxima xs = [b | (a, b, c) <- zip3 xs (tail xs) (tail (tail xs)), (a < b) &
 -- starting from max value go throug all elements and compare
 --   if the element appear >= value times, then print "*"
 --   otherwise print " "
-counts xs = [length (filter (\x -> x == i) xs) | i <- [0..9]]
-rows xs = [map (\x -> if x >= i then "*" else " ") (counts xs) | i <- (reverse [1..(maximum (counts xs))])]
+counts xs = [length $ filter (== i) xs | i <- [0..9]]
 histogram :: [Int] -> String
-histogram xs = intercalate "\n" ([concat $ reverse $ dropWhile (== " ") (reverse r) | r <- (rows xs)] ++ ["=========="] ++ ["0123456789"])
+histogram xs = intercalate "\n" ([concat (map (\x -> if x >= i then "*" else " ") c) | let c = counts xs, i <- (reverse [1..(maximum c)])] ++ ["=========="] ++ ["0123456789"])
