@@ -19,4 +19,4 @@ fun2 n
 
 fun2' :: Integer -> Integer
 fun2' 1 = 0
-fun2' n = (foldr (+) 0 (takeWhile (even) $ iterate (\x -> x `div` 2) n)) + fun2' (3*(head . filter (/=1) . dropWhile (even) $ iterate (\x -> x `div` 2) n) + 1)
+fun2' n = (foldr (+) 0) $ (:) ((fun2' . (+) 1 . (*) 3 . head . filter (/=1) . dropWhile (even)) $ iterate (\x -> x `div` 2) n) ((takeWhile (even)) $ iterate (\x -> x `div` 2) n)
