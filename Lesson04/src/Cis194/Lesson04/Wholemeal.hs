@@ -20,3 +20,6 @@ fun2 n
 fun2' :: Integer -> Integer
 fun2' 1 = 0
 fun2' n = (foldr (+) 0) $ (:) ((fun2' . (+) 1 . (*) 3 . head . filter (/=1) . dropWhile (even)) $ iterate (\x -> x `div` 2) n) ((takeWhile (even)) $ iterate (\x -> x `div` 2) n)
+
+xor :: [Bool] -> Bool
+xor = foldr (\x y -> if x then not y else y) False

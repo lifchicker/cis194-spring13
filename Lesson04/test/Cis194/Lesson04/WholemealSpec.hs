@@ -22,3 +22,7 @@ module Cis194.Lesson04.WholemealSpec (main, spec) where
         fun2' 3 `shouldBe` fun2 3
         fun2' 4 `shouldBe` fun2 4
         fun2' 5 `shouldBe` fun2 5
+    describe "xor" $ do
+      it "Should returns True if and only if there are an odd number of True values contained in the input list" $ do
+        xor [False, True, False] `shouldBe` True
+        xor [False, True, False, False, True] `shouldBe` False
