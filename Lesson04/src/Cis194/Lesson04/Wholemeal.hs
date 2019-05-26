@@ -23,3 +23,6 @@ fun2' n = (foldr (+) 0) $ (:) ((fun2' . (+) 1 . (*) 3 . head . filter (/=1) . dr
 
 xor :: [Bool] -> Bool
 xor = foldr (\x y -> if x then not y else y) False
+
+map' :: (a -> b) -> [a] -> [b]
+map' f = foldr (\x y -> (f x) : y) []

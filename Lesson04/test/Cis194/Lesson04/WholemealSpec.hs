@@ -26,3 +26,6 @@ module Cis194.Lesson04.WholemealSpec (main, spec) where
       it "Should returns True if and only if there are an odd number of True values contained in the input list" $ do
         xor [False, True, False] `shouldBe` True
         xor [False, True, False, False, True] `shouldBe` False
+    describe "map'" $ do
+      it "Should behaves identically to the standard map function" $ do
+        map' (*2) [1, 2, 3, 4] `shouldBe` map (*2) [1, 2, 3, 4]
