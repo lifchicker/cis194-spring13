@@ -16,3 +16,10 @@ module Cis194.Lesson05.CalcSpec (main, spec) where
     describe "eval" $ do
       it "evaluate the expression" $ do
         eval (Mul (Add (Lit 2) (Lit 3)) (Lit 4)) `shouldBe` 20
+    describe "evalStr" $ do
+      it "evaluates arithmetic expressions given as a String, \
+      \producing Nothing for inputs which are not well-formed expressions, \
+      \and Just n for well-formed inputs that evaluate to n" $ do
+        evalStr "(2+3)*4" `shouldBe` Just 20
+        evalStr "2+3*4" `shouldBe` Just 14
+        evalStr "2+3*" `shouldBe` Nothing
