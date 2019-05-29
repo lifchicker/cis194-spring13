@@ -25,3 +25,13 @@ instance (Evaluable e) => EvaluableMaybe (Maybe e) where
 
 evalStr :: String -> Maybe Integer
 evalStr = evalMaybe . (parseExp Lit Add Mul)
+
+class Expr e where
+  lit :: Integer -> e
+  add :: e -> e -> e
+  mul :: e -> e -> e
+
+instance Expr ExprT where
+  lit = Lit
+  add = Add
+  mul = Mul

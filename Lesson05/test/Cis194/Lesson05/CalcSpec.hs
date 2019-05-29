@@ -23,3 +23,6 @@ module Cis194.Lesson05.CalcSpec (main, spec) where
         evalStr "(2+3)*4" `shouldBe` Just 20
         evalStr "2+3*4" `shouldBe` Just 14
         evalStr "2+3*" `shouldBe` Nothing
+    describe "Expr" $ do
+      it "should evaluate functions to objects" $ do
+        (mul (add (lit 2) (lit 3)) (lit 4) :: ExprT) `shouldBe` (Mul (Add (Lit 2) (Lit 3)) (Lit 4))
