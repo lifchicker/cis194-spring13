@@ -26,3 +26,9 @@ module Cis194.Lesson05.CalcSpec (main, spec) where
     describe "Expr" $ do
       it "should evaluate functions to objects" $ do
         (mul (add (lit 2) (lit 3)) (lit 4) :: ExprT) `shouldBe` (Mul (Add (Lit 2) (Lit 3)) (Lit 4))
+    describe "testExp" $ do
+      it "should evaluate for Integer, Bool, MinMax and Mod7 types" $ do
+        (testExp :: Maybe Integer) `shouldBe` Just (-7)
+        (testExp :: Maybe Bool) `shouldBe` Just True
+        (testExp :: Maybe MinMax) `shouldBe` Just (MinMax 5)
+        (testExp :: Maybe Mod7) `shouldBe` Just (Mod7 0)

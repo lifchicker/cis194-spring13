@@ -35,3 +35,29 @@ instance Expr ExprT where
   lit = Lit
   add = Add
   mul = Mul
+
+newtype MinMax = MinMax Integer deriving (Eq, Show)
+newtype Mod7 = Mod7 Integer deriving (Eq, Show)
+
+testExp :: Expr a => Maybe a
+testExp = parseExp lit add mul "(3 * -4) + 5"
+
+instance Expr Integer where
+  lit x = x
+  add = (+)
+  mul = (*)
+
+instance Expr Bool where
+  lit x = if x <= 0 then False else True
+  add = (&&)
+  mul = (||)
+
+instance Expr MinMax where
+  lit = MinMax
+  add (MinMax x) (MinMax y) = MinMax (if x >= y then x else y)
+  mul (MinMax x) (MinMax y) = MinMax (if x <= y then x else y)
+
+instance Expr Mod7 where
+  lit x = Mod7 (x `mod` 7)
+  add (Mod7 x) (Mod7 y) = lit (x + y)
+  mul (Mod7 x) (Mod7 y) = lit (x * y)
