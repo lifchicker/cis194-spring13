@@ -5,6 +5,7 @@ module Cis194.Lesson05.CalcSpec (main, spec) where
     
   import Cis194.Lesson05.ExprT
   import Cis194.Lesson05.Calc
+  import qualified Cis194.Lesson05.StackVM as StackVM (stackVM, StackExp(..), StackVal(..))
     
   -- `main` is here so that this module can be run from GHCi on its own.  It is
   -- not needed for automatic spec discovery.
@@ -32,3 +33,9 @@ module Cis194.Lesson05.CalcSpec (main, spec) where
         (testExp :: Maybe Bool) `shouldBe` Just True
         (testExp :: Maybe MinMax) `shouldBe` Just (MinMax 5)
         (testExp :: Maybe Mod7) `shouldBe` Just (Mod7 0)
+    describe "stackVM" $ do
+      it "should execute program" $ do
+        StackVM.stackVM [StackVM.PushI 3, StackVM.PushI 5, StackVM.Add] `shouldBe` Right (StackVM.IVal 8)
+    describe "compile" $ do
+      it "should compile string to executable program" $ do
+        compile "3 + 5" `shouldBe` Just [StackVM.PushI 3, StackVM.PushI 5, StackVM.Add]
