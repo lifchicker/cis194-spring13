@@ -39,3 +39,8 @@ module Cis194.Lesson05.CalcSpec (main, spec) where
     describe "compile" $ do
       it "should compile string to executable program" $ do
         compile "3 + 5" `shouldBe` Just [StackVM.PushI 3, StackVM.PushI 5, StackVM.Add]
+    describe "withVars" $ do
+      it "should support expressions with variables" $ do
+        (withVars [("x", 6)] $ add (lit 3) (var "x")) `shouldBe` Just 9
+        (withVars [("x", 6)] $ add (lit 3) (var "y")) `shouldBe` Nothing
+        (withVars [("x", 6), ("y", 3)] $ mul (var "x") (add (var "y") (var "x"))) `shouldBe` Just 54

@@ -6,6 +6,7 @@ module Cis194.Lesson05.Calc where
 import Cis194.Lesson05.ExprT
 import Cis194.Lesson05.Parser
 import qualified Cis194.Lesson05.StackVM as StackVM (Program, stackVM, StackExp(..), StackVal(..))
+import qualified Data.Map as M
 
 class Evaluable e where
   calc :: e -> Integer
@@ -71,3 +72,37 @@ instance Expr StackVM.Program where
 
 compile :: String -> Maybe StackVM.Program
 compile = parseExp lit add mul
+
+class HasVars a where
+  var :: String -> a
+
+data VarExprT = VLit Integer
+              | VAdd VarExprT VarExprT
+              | VMul VarExprT VarExprT
+              | VVar String
+  deriving (Show, Eq)
+
+instance HasVars VarExprT where
+  var = VVar
+
+instance Expr VarExprT where
+  lit = VLit
+  add = VAdd
+  mul = VMul
+  
+instance HasVars (M.Map String Integer -> Maybe Integer) where
+  var = M.lookup
+
+instance Expr (M.Map String Integer -> Maybe Integer) where
+  lit x = \m -> Just x
+  add f g = \m -> case ((f m), (g m)) of 
+    (Just x, Just y) -> Just (x + y)
+    _ -> Nothing
+  mul f g = \m -> case ((f m), (g m)) of 
+    (Just x, Just y) -> Just (x * y)
+    _ -> Nothing
+
+withVars :: [(String, Integer)]
+         -> (M.Map String Integer -> Maybe Integer)
+         -> Maybe Integer
+withVars vs exp = exp $ M.fromList vs
