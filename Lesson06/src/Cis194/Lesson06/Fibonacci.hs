@@ -17,3 +17,11 @@ fibs2 = 0 : 1 : (fib2 0 1)
   where 
     fib2 x y = xy : fib2 y xy
       where xy = x + y
+
+data Stream a = Stream a (Stream a)
+
+streamToList :: Stream a -> [a]
+streamToList (Stream x xs) = x : streamToList xs
+
+instance Show a => Show (Stream a) where
+  show xs = show $ take 10 $ streamToList xs
