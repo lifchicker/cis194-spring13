@@ -21,3 +21,14 @@ spec = do
   describe "fibs2" $ do
     it "more efficient implementation of infinite list of all Fibonacci numbers" $ do
       take 11 fibs2 `shouldBe` take 11 fibs1
+  describe "streamRepeat" $ do
+    it "generates a stream containing infinitely many copies of the given element" $ do
+      show (streamRepeat 0) `shouldBe` "[0,0,0,0,0,0,0,0,0,0]"
+  describe "streamMap" $ do
+    it "applies a function to every element of a Stream" $ do
+      show (streamMap (+1) $ streamRepeat 1) `shouldBe` "[2,2,2,2,2,2,2,2,2,2]"
+  describe "streamFromSeed" $ do
+    it "generates a Stream from a “seed” of type a, which is the first element of the stream, and an “unfolding rule” of type a -> a \
+    \ which specifies how to transform the seed into a new seed, to be \
+    \ used for generating the rest of the stream" $ do
+      show (streamFromSeed (+1) 0) `shouldBe` "[1,2,3,4,5,6,7,8,9,10]"
