@@ -32,3 +32,6 @@ spec = do
     \ which specifies how to transform the seed into a new seed, to be \
     \ used for generating the rest of the stream" $ do
       show (streamFromSeed (+1) 0) `shouldBe` "[1,2,3,4,5,6,7,8,9,10]"
+  describe "nats" $ do
+    it "contains the infinite list of natural numbers 0, 1, 2, ..." $ do
+      show nats `shouldBe` "[0,1,2,3,4,5,6,7,8,9]"

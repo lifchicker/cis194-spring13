@@ -35,3 +35,6 @@ streamMap f (Stream x xs) = Stream (f x) (streamMap f xs)
 streamFromSeed :: (a -> a) -> a -> Stream a
 streamFromSeed f x = Stream y (streamFromSeed f y)
   where y = f x
+
+nats :: Stream Integer
+nats = Stream 0 (streamFromSeed (+1) 0)
