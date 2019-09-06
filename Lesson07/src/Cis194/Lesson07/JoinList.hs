@@ -20,10 +20,22 @@ tag (Append m _ _) = m
 (+++) :: Monoid m => JoinList m a -> JoinList m a -> JoinList m a
 (+++) l r = Append (mappend (tag l) (tag r)) l r
 
+getListSize :: (Sized b, Monoid b) => JoinList b a -> Int
+getListSize = (getSize . size . tag)
+
 indexJ :: (Sized b, Monoid b) => Int -> JoinList b a -> Maybe a
 indexJ 0 (Single _ x) = Just x
-indexJ i jl | i >= ((getSize . size . tag) jl) = Nothing
+indexJ i jl | i >= (getListSize jl) = Nothing
 indexJ i (Append _ l r)
   | i < ls = indexJ i l
   | otherwise = indexJ (i - ls) r
-  where ls = (getSize . size . tag) l
+  where ls = getListSize l
+
+dropJ :: (Sized b, Monoid b) => Int -> JoinList b a -> JoinList b a
+dropJ 0 xs = xs
+dropJ 1 x@(Single _ _) = Empty
+dropJ i x@(Append _ l r)
+  | i > (getListSize x)  = Empty
+  | i == (getListSize l) = r
+  | i < (getListSize l) = (dropJ i l) +++ r
+  | otherwise     = (dropJ (i - (getListSize l)) r)

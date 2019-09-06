@@ -11,13 +11,15 @@ main = hspec spec
 
 spec :: Spec
 spec = do
+  let jl = (Single (Size 1) 0) +++ (Single (Size 1) 1)
+  let jl2 = (Single (Size 1) 0) +++ (Single (Size 1) 1) +++ (Single (Size 1) 2) +++ (Single (Size 1) 3)
   describe "indexJ" $ do
     it "returns Nothing, if the index is out of bounds" $ do
-      let i = 1
-      let jl = (Single (Size 1) 0)
-      (indexJ i jl) `shouldBe` Nothing
+      (indexJ 2 jl) `shouldBe` Nothing
     it "finds the JoinList element at the specified index" $ do
-      let i = 1
-      let jl = (Single (Size 1) 0) +++ (Single (Size 1) 1)
-      (indexJ i jl) `shouldBe` (Just 1)
-      
+      (indexJ 1 jl) `shouldBe` (Just 1)
+  describe "dropJ" $ do
+    it "drops the first n elements from a JoinList" $ do
+      (dropJ 1 jl) `shouldBe` (Single (Size 1) 1)
+      (dropJ 2 jl) `shouldBe` Empty
+      (dropJ 3 jl2) `shouldBe` (Single (Size 1) 3)
