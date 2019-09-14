@@ -5,6 +5,7 @@ module Cis194.Lesson07.JoinList where
 import Data.List
 
 import Cis194.Lesson07.Sized
+import Cis194.Lesson07.Scrabble
 
 
 data JoinList m a = Empty
@@ -47,3 +48,6 @@ takeJ i (Append _ l r)
   | i <= ls = takeJ i l
   | i > ls = l +++ (takeJ (i - ls) r)
   where ls = getListSize l
+
+scoreLine :: String -> JoinList Score String
+scoreLine xs = Single (scoreString xs) xs

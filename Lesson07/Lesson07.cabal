@@ -19,6 +19,7 @@ library
                      , Cis194.Lesson07.StringBuffer
                      , Cis194.Lesson07.Editor
                      , Cis194.Lesson07.Sized
+                     , Cis194.Lesson07.Scrabble
   other-modules:       Cis194.Lesson07.Buffer
   build-depends:       base >= 4.7 && < 5
                      , mtl >= 2.2.2
