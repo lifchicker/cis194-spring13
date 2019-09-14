@@ -23,3 +23,7 @@ spec = do
       (dropJ 1 jl) `shouldBe` (Single (Size 1) 1)
       (dropJ 2 jl) `shouldBe` Empty
       (dropJ 3 jl2) `shouldBe` (Single (Size 1) 3)
+  describe "takeJ" $ do
+    it "returns the first n elements of a JoinList, dropping all other elements" $ do
+      (takeJ 0 jl) `shouldBe` Empty
+      (takeJ 1 jl) `shouldBe` (Single (Size 1) 0)

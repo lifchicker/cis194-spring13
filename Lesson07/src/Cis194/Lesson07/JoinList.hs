@@ -39,3 +39,11 @@ dropJ i x@(Append _ l r)
   | i == (getListSize l) = r
   | i < (getListSize l) = (dropJ i l) +++ r
   | otherwise     = (dropJ (i - (getListSize l)) r)
+
+takeJ :: (Sized b, Monoid b) => Int -> JoinList b a -> JoinList b a
+takeJ 0 _ = Empty
+takeJ i xs | i == (getListSize xs) = xs
+takeJ i (Append _ l r)
+  | i <= ls = takeJ i l
+  | i > ls = l +++ (takeJ (i - ls) r)
+  where ls = getListSize l
