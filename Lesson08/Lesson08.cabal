@@ -16,7 +16,9 @@ cabal-version:       >=1.10
 library
   hs-source-dirs:      src
   exposed-modules:     Cis194.Lesson08.Party
+                     , Cis194.Lesson08.Employee
   build-depends:       base >= 4.7 && < 5
+                     , containers
   default-language:    Haskell2010
 
 executable Lesson08

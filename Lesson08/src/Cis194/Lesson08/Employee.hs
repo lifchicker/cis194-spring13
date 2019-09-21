@@ -1,4 +1,4 @@
-module Cis.194.Lesson08.Employee where
+module Cis194.Lesson08.Employee where
 
 import           Data.Tree
 
